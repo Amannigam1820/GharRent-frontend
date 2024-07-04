@@ -8,9 +8,9 @@ const ListPage = () => {
   const data = listData;
   // console.log(data[0].img);
   return (
-    <div class="listPage">
-      <div class="listContainer">
-        <div class="wrapper">
+    <div className="listPage">
+      <div className="listContainer">
+        <div className="wrapper">
           <Filter/>
           {
             data.map((item)=>(
@@ -20,7 +20,7 @@ const ListPage = () => {
           }
         </div>
       </div>
-      <div class="mapContainer">
+      <div className="mapContainer">
         <Map items = {data}/>
       </div>
     </div>

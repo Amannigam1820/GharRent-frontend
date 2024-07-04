@@ -4,35 +4,35 @@ import "./Card.scss";
 
 const Card = ({ item }) => {
   return (
-    <div class="card">
+    <div className="card">
       <Link to={`/${item.id}`} className="imageContainer">
         <img src={item.img} alt="image" />
       </Link>
-      <div class="textContainer">
-        <h2 class="title">
+      <div className="textContainer">
+        <h2 className="title">
           <Link to={`/${item.id}`}>{item.title}</Link>
         </h2>
-        <p class="address">
+        <p className="address">
           <img src="pin.png" />
           <span>{item.address}</span>
         </p>
-        <p class="price">${item.price}</p>
-        <div class="bottom">
-          <div class="features">
-            <div class="feature">
+        <p className="price">${item.price}</p>
+        <div className="bottom">
+          <div className="features">
+            <div className="feature">
               <img src="bed.png" />
               <span>{item.bedroom} bedroom</span>
             </div>
-            <div class="feature">
+            <div className="feature">
               <img src="bath.png" />
               <span>{item.bathroom} bathroom</span>
             </div>
           </div>
-          <div class="icons">
-            <div class="icon">
+          <div className="icons">
+            <div className="icon">
               <img src="save.png" />
             </div>
-            <div class="icon">
+            <div className="icon">
               <img src="chat.png" />
             </div>
           </div>

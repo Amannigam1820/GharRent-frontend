@@ -3,18 +3,18 @@ import "./Filter.scss";
 
 const Filter = () => {
   return (
-    <div class="filter">
+    <div className="filter">
       <h1>
         Search results for <b>London</b>
       </h1>
-      <div class="top">
-        <div class="item">
+      <div className="top">
+        <div className="item">
           <label htmlFor="city">Location</label>
           <input type="text" id="city" name="city" placeholder="City" />
         </div>
       </div>
-      <div class="bottom">
-        <div class="item">
+      <div className="bottom">
+        <div className="item">
           <label htmlFor="Type">Type</label>
           <select name="type" id="type">
             <option value="">Any</option>
@@ -22,7 +22,7 @@ const Filter = () => {
             <option value="rent">Rent</option>
           </select>
         </div>
-        <div class="item">
+        <div className="item">
           <label htmlFor="Property">Property</label>
           <select name="Property" id="Property">
             <option value="">Any</option>
@@ -32,7 +32,7 @@ const Filter = () => {
             <option value="land">Land</option>
           </select>
         </div>
-        <div class="item">
+        <div className="item">
           <label htmlFor="minPrice">Min Price</label>
           <input
             type="number"
@@ -41,7 +41,7 @@ const Filter = () => {
             placeholder="any"
           />
         </div>
-        <div class="item">
+        <div className="item">
           <label htmlFor="maxPrice">Max Price</label>
           <input
             type="number"
@@ -50,7 +50,7 @@ const Filter = () => {
             placeholder="any"
           />
         </div>
-        <div class="item">
+        <div className="item">
           <label htmlFor="bedroom">Bedroom</label>
           <input type="text" id="bedroom" name="bedroom" placeholder="any" />
         </div>

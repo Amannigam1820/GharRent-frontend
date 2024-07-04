@@ -16,8 +16,8 @@ const SearchBar = () => {
   };
 
   return (
-    <div class="searchBar">
-      <div class="type">
+    <div className="searchBar">
+      <div className="type">
         {types.map((type) => (
           <button
             key={type}
