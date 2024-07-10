@@ -1,33 +1,36 @@
 import React, { useState } from "react";
 import "./navbar.scss";
 import { Link } from "react-router-dom";
+import {useSelector} from "react-redux"
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
 
-  const user = true;
+  const {user} = useSelector((state)=>state.auth)
+
+  //console.log(user);
 
   return (
     <nav>
       <div className="left">
-        <a href="/" className="logo">
+        <Link to="/" className="logo">
           <img src="/logo.png" alt="logo" />
           <span>GharRent</span>
-        </a>
-        <a href="/">Home</a>
-        <a href="/">About</a>
-        <a href="/">Contact</a>
-        <a href="/">Agents</a>
+        </Link>
+       <Link to ="/">Home</Link>
+       <Link to ="/">About</Link>
+       <Link to ="/">Contact</Link>
+       <Link to ="/">Agents</Link>
       </div>
 
       <div className="right">
         {user ? (
           <div className="user">
             <img
-              src="https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+              src={user.avatar || "noavatar.jpg"}
               alt=""
             />
-            <span>John Doe</span>
+            <span>{user.username}</span>
             <Link className="profile" to="/profile">
               <div className="notification">3</div>
               <span>Profile</span>
@@ -36,8 +39,8 @@ const Navbar = () => {
         ) : (
           <>
             {" "}
-            <a href="/">Sign up</a>
-            <a href="/" className="register">
+            <a href="/register">Sign up</a>
+            <a href="/login" className="register">
               Log in
             </a>{" "}
           </>

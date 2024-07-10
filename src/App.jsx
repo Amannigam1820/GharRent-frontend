@@ -6,8 +6,27 @@ import SinglePage from "./routes/singlePage/SinglePage"
 import Profile from "./routes/profile/Profile"
 import Register from "./routes/register/Register"
 import Login from "./routes/login/Login"
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react"
+import axios from "axios"
+import { userExists, userNotExist } from "./redux/reducer/auth"
+import ProtectedRoute from "./components/protectedRoute/ProtectedRoute"
+import AuthProtectedRoute from "./components/protectedRoute/authProtectedRoute"
+
 
 function App() {
+  const { user, loader } = useSelector((state) => state.auth);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    axios                             
+      .get('http://localhost:8800/api/auth/me', {withCredentials:true})
+      .then(({data}) => dispatch(userExists(data.user)))
+      .catch((err) => dispatch(userNotExist()));
+  }, [dispatch]);
+
+
   const router = createBrowserRouter([
     {
       path:"/",
@@ -27,11 +46,11 @@ function App() {
         },
         {
           path:"/profile",
-          element:<Profile/>
+          element:<ProtectedRoute element={Profile} />
         },
         {
           path:"/login",
-          element:<Login/>
+          element:<AuthProtectedRoute element={Login} />
         },
         {
           path:"/register",
@@ -39,6 +58,7 @@ function App() {
         }
       ]
     },
+    
    
   ])
   
