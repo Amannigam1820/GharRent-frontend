@@ -23,6 +23,9 @@ const Register = () => {
     const contact = formData.get("contact");
     const password = formData.get("password");
 
+
+    console.log(formData);
+
     try {
       const response = await apiRequest.post("/auth/register", {
         username,
@@ -34,7 +37,7 @@ const Register = () => {
      dispatch(userExists(response.data.user))
       toast.success(response.data.message);
 
-      navigate("/");
+      navigate("/login");
     } catch (error) {
    //   console.log(error);
       setError(error.response?.data?.message);

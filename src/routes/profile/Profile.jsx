@@ -1,23 +1,28 @@
 import React, { useEffect } from "react";
-import "./profile.scss";
-import List from "../../components/list/List";
 import Chat from "../../components/chat/Chat";
+import List from "../../components/list/List";
 import apiRequest from "../../lib/apiRequest";
-import axios from "axios";
-import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import "./profile.scss";
+
 import { useDispatch, useSelector } from "react-redux";
-import { userNotExist } from "../../redux/reducer/auth";
+import { Link, useNavigate } from "react-router-dom";
+import { userExists, userNotExist } from "../../redux/reducer/auth";
+
+import { useUserInfoQuery } from "../../redux/api/api";
 
 const Profile = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
-
-  console.log(user);
+  const updatedUserInfo = useUserInfoQuery({ userId: user.id });
 
   useEffect(() => {
-    // Redirect to home page if user is not available
+    if (updatedUserInfo?.data?.user) {
+      dispatch(userExists(updatedUserInfo.data.user));
+    }
+  }, [updatedUserInfo, dispatch]);
+
+  useEffect(() => {
     if (!user) {
       navigate("/");
     }
@@ -34,54 +39,56 @@ const Profile = () => {
   };
   return (
     <div className="profilePage">
-    {user && (
-      <div className="details">
+      {user && (
+        <div className="details">
+          <div className="wrapper">
+            <div className="title">
+              <h1>User Information</h1>
+              <Link to="/profile/update">
+                <button>Update Profile</button>
+              </Link>
+            </div>
+            <div className="info">
+              <span>
+                Avatar:{" "}
+                <img
+                  src={updatedUserInfo?.data?.user.avatar || "noavatar.jpg"}
+                  alt=""
+                />{" "}
+              </span>
+              <span>
+                Username: <b>{updatedUserInfo?.data?.user.username}</b>
+              </span>
+              <span>
+                Email: <b>{updatedUserInfo?.data?.user.email}</b>
+              </span>
+              <span>
+                Contact: <b>{updatedUserInfo?.data?.user.contact}</b>
+              </span>
+              <button onClick={handleLogout}>Logout</button>
+            </div>
+            <div className="title">
+              <h1>My Property</h1>
+              <Link to="/add-property">
+                <button>Add Property</button>
+              </Link>
+            </div>
+            <List />
+            <div className="title">
+              <h1>Saved Property</h1>
+            </div>
+            <List />
+          </div>
+        </div>
+      )}
+      <div className="chatContainer">
         <div className="wrapper">
-          <div className="title">
-            <h1>User Information</h1>
-            <button>Update Profile</button>
-          </div>
-          <div className="info">
-            <span>
-              Avatar:{" "}
-              <img
-                src={user.avatar || "noavatar.jpg"}
-                alt=""
-              />{" "}
-            </span>
-            <span>
-              Username: <b>{user.username}</b>
-            </span>
-            <span>
-              Email: <b>{user.email}</b>
-            </span>
-            <span>
-              Contact: <b>{user.contact}</b>
-            </span>
-            <button onClick={handleLogout}>Logout</button>
-          </div>
-          <div className="title">
-            <h1>My Property</h1>
-            <button>Add Property</button>
-          </div>
-          <List />
-          <div className="title">
-            <h1>Saved Property</h1>
-          </div>
-          <List />
+          {/* Assuming Chat component exists and is correctly implemented */}
+          <Chat />
         </div>
       </div>
-    )}
-    <div className="chatContainer">
-      <div className="wrapper">
-        {/* Assuming Chat component exists and is correctly implemented */}
-        <Chat />
-      </div>
     </div>
-  </div>
-  
-  )
-
+  );
 };
 
 export default Profile;

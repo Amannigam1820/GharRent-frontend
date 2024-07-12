@@ -2,11 +2,24 @@ import React, { useState } from "react";
 import "./navbar.scss";
 import { Link } from "react-router-dom";
 import {useSelector} from "react-redux"
+import { useUserInfoQuery } from "../../redux/api/api";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
 
   const {user} = useSelector((state)=>state.auth)
+
+  // const {updatedUser} = useSelector((state)=>state.auth)
+
+  // console.log(up);
+
+ // console.log(user.id);
+
+  // const updatedUserInfo = useUserInfoQuery({ userId: user.id });
+
+  //  console.log(updatedUserInfo?.data?.user?.username);
+
+
 
   //console.log(user);
 

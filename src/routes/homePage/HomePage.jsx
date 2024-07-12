@@ -1,8 +1,27 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./HomePage.scss";
 import SearchBar from "../../components/searchBar/SearchBar";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import { userExists, userNotExist } from "../../redux/reducer/auth";
+
+
 
 const HomePage = () => {
+
+
+  // const { user, loader } = useSelector((state) => state.auth);
+
+  // const dispatch = useDispatch();
+
+  // useEffect(() => {
+  //   axios                             
+  //     .get('http://localhost:8800/api/auth/me', {withCredentials:true})
+  //     .then(({data}) => dispatch(userExists(data.user)))
+  //     .catch((err) => dispatch(userNotExist()));
+  // }, [dispatch]);
+
+
   return (
     <div className="homePage">
       <div className="textContainer">

@@ -12,6 +12,8 @@ import axios from "axios"
 import { userExists, userNotExist } from "./redux/reducer/auth"
 import ProtectedRoute from "./components/protectedRoute/ProtectedRoute"
 import AuthProtectedRoute from "./components/protectedRoute/authProtectedRoute"
+import ProfileUpdate from "./routes/profileUpdatePage/ProfileUpdate"
+import PostProperty from "./routes/PostPropertyPage/PostProperty"
 
 
 function App() {
@@ -34,7 +36,7 @@ function App() {
       children:[
         {
           path:'/',
-          element:<HomePage/>
+          element:<ProtectedRoute element={HomePage} />
         },
         {
           path:"/list",
@@ -55,6 +57,14 @@ function App() {
         {
           path:"/register",
           element:<Register/>
+        },
+        {
+          path:"/profile/update",
+          element:<ProtectedRoute element={ProfileUpdate} />
+        },
+        {
+          path:"/add-property",
+          element:<ProtectedRoute element={PostProperty} />
         }
       ]
     },
