@@ -5,10 +5,10 @@ import "leaflet/dist/leaflet.css";
 import Pin from "../pin/Pin";
 
 const Map = ({ items }) => {
-    console.log(items);
+   // console.log(items);
   return (
     <MapContainer
-      center={[52.4797,-1.90269]}
+      center={items.length ===  1 ? [items[0].latitude, items[0].longitude] : [22.9734, 78.6569]}
       zoom={7}
       scrollWheelZoom={true}
       className="map"
@@ -21,7 +21,7 @@ const Map = ({ items }) => {
         <Pin item={item} key={item.id} />
       ))} */}
       {items.map(item=>(
-      <Pin item={item} key={item.id}/>
+      <Pin item={item} key={item?.id}/>
     ))}
     </MapContainer>
   );

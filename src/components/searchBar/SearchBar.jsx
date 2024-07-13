@@ -1,15 +1,47 @@
 import { useState } from "react";
 import "./searchBar.scss";
+import { useNavigate } from "react-router-dom";
+import { useSearchPropertyQuery } from "../../redux/api/api";
 
 const types = ["rent", "buy"];
 
 const SearchBar = () => {
+  const navigate = useNavigate();
+
   const [query, setQuery] = useState({
     type: "Rent",
-    location: "",
+    city: "",
     minPrice: 0,
     maxPrice: 0,
   });
+
+  const useQuery = () => {
+    return new URLSearchParams(useLocation().search);
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setQuery((prev) => ({ ...prev, [name]: value }));
+  };
+
+  // const {data,isLoading, error} = useSearchPropertyQuery({
+  //   city:query.city,
+  //   type:query.type,
+  //   minPrice:query.minPrice,
+  //   maxPrice:query.maxPrice
+  // })
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const searchParams = new URLSearchParams(query);
+    navigate(`list?${searchParams.toString()}`);
+
+
+    //console.log(query.city);
+   
+
+    //console.log(data);
+  };
 
   const switchType = (val) => {
     setQuery((prev) => ({ ...prev, type: val }));
@@ -28,14 +60,22 @@ const SearchBar = () => {
           </button>
         ))}
       </div>
-      <form>
-        <input type="text" name="location" placeholder="City Loaction" />
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          name="city"
+          placeholder="City Loaction"
+          value={query.location}
+          onChange={handleChange}
+        />
         <input
           type="number"
           name="minPrice"
           min={1000}
           max={1000000000}
           placeholder="Min Price"
+          value={query.minPrice}
+          onChange={handleChange}
         />
         <input
           type="number"
@@ -43,8 +83,10 @@ const SearchBar = () => {
           min={1000}
           max={1000000000}
           placeholder="Max Price"
+          value={query.maxPrice}
+          onChange={handleChange}
         />
-          <button>
+        <button type="submit">
           <img src="/search.png" alt="" />
         </button>
       </form>
