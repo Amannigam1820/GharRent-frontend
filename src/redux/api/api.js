@@ -51,6 +51,13 @@ export const userAPI = createApi({
         }
         return base;
       }
+    }),
+    savePlace: builder.mutation({
+      query:({data})=>({
+        url:`users/save`,
+        method:"POST",
+        body:data
+      })
     })
   }),
 });
@@ -60,5 +67,6 @@ export const {
   useUserInfoQuery,
   useAddPropertyMutation,
   useSinglePropertyQuery,
-  useSearchPropertyQuery
+  useSearchPropertyQuery,
+  useSavePlaceMutation
 } = userAPI;

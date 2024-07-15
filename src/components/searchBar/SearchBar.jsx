@@ -24,12 +24,6 @@ const SearchBar = () => {
     setQuery((prev) => ({ ...prev, [name]: value }));
   };
 
-  // const {data,isLoading, error} = useSearchPropertyQuery({
-  //   city:query.city,
-  //   type:query.type,
-  //   minPrice:query.minPrice,
-  //   maxPrice:query.maxPrice
-  // })
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -37,10 +31,7 @@ const SearchBar = () => {
     navigate(`list?${searchParams.toString()}`);
 
 
-    //console.log(query.city);
-   
-
-    //console.log(data);
+  
   };
 
   const switchType = (val) => {

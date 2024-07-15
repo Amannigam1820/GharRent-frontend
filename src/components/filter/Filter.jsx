@@ -42,7 +42,7 @@ const Filter = () => {
     setQueryParams(params);
   }, [location.search]);
 
-  console.log(queryParams.city);
+  //console.log(queryParams.city);
 
   
 

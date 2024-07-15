@@ -4,21 +4,18 @@ import "./profileupdate.scss";
 import { useSelector } from "react-redux";
 import { useUpdateUserMutation, useUserInfoQuery } from "../../redux/api/api";
 import toast from "react-hot-toast";
-import {useDispatch} from "react-redux"
+import { useDispatch } from "react-redux";
 import { userExists } from "../../redux/reducer/auth";
 import UploadWidget from "../../components/uploadWidget/UploadWidget";
 
 const ProfileUpdate = () => {
   const [error, setError] = useState("");
   const { user } = useSelector((state) => state.auth);
-  const [avatar, setAvatar] = useState([])
-  
-  
+  const [avatar, setAvatar] = useState([]);
+
   const [updateUser] = useUpdateUserMutation();
   const dispatch = useDispatch();
-  
- 
-  
+
   const navigate = useNavigate();
 
   const submitHandler = async (e) => {
@@ -35,7 +32,7 @@ const ProfileUpdate = () => {
       email,
       contact,
       password,
-      avatar:avatar[0]
+      avatar: avatar[0],
     };
 
     //console.log(formData1);
@@ -46,24 +43,21 @@ const ProfileUpdate = () => {
         formData: formData1,
       });
 
-     // console.log(res);
+      // console.log(res);
 
       //dispatch(userExists(res.updatedUser))
 
-
-    
-     // console.log(res.error.data);
+      // console.log(res.error.data);
       toast.success(res.data.message);
       navigate("/profile");
     } catch (error) {
-      console.log("errorssss",error);
+      console.log("errorssss", error);
       //setError(error.response.data.message);
     }
   };
 
-
   // useEffect(()=>{
-  //   const 
+  //   const
   // })
 
   return (
@@ -106,17 +100,21 @@ const ProfileUpdate = () => {
         </form>
       </div>
       <div className="sideContainer">
-        <img src={avatar[0] || user.avatar || "/noavatar.jpg"} alt="" className="avatar" />
+        <img
+          src={avatar[0] || user.avatar || "/noavatar.jpg"}
+          alt=""
+          className="avatar"
+        />
         <UploadWidget
-        uwConfig={{
-          cloudName: "yash-backend18",
-          uploadPreset: "GharRent",
-          multiple: false,
-          maxImageFileSize: 2000000,
-          folder: "avatars",
-        }}
-        setState={setAvatar}
-      />
+          uwConfig={{
+            cloudName: "yash-backend18",
+            uploadPreset: "GharRent",
+            multiple: false,
+            maxImageFileSize: 2000000,
+            folder: "avatars",
+          }}
+          setState={setAvatar}
+        />
       </div>
     </div>
   );
