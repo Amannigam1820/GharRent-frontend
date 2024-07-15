@@ -6,7 +6,7 @@ export const userAPI = createApi({
     baseUrl: "http://localhost:8800/api/",
     credentials: "include",
   }),
-  tagTypes: ["user"],
+  tagTypes: ["user","post"],
   endpoints: (builder) => ({
     updateUser: builder.mutation({
       query: ({ userId, formData }) => ({
@@ -18,7 +18,7 @@ export const userAPI = createApi({
     }),
     userInfo: builder.query({
       query: ({ userId }) => ({
-        url: `users/${userId}`,
+        url: `users/search/${userId}`,
       }),
       providesTags: ["user"],
     }),
@@ -58,7 +58,14 @@ export const userAPI = createApi({
         method:"POST",
         body:data
       })
+    }),
+    profilePosts:builder.query({
+      query:()=>({
+        url:`users/profilePosts`
+      }),
+      providesTags: ["user","post"],
     })
+
   }),
 });
 
@@ -68,5 +75,6 @@ export const {
   useAddPropertyMutation,
   useSinglePropertyQuery,
   useSearchPropertyQuery,
-  useSavePlaceMutation
+  useSavePlaceMutation,
+  useProfilePostsQuery
 } = userAPI;

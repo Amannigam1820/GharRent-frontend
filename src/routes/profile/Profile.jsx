@@ -8,13 +8,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { userExists, userNotExist } from "../../redux/reducer/auth";
 
-import { useUserInfoQuery } from "../../redux/api/api";
+import { useProfilePostsQuery, useUserInfoQuery } from "../../redux/api/api";
 
 const Profile = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
   const updatedUserInfo = useUserInfoQuery({ userId: user.id });
+  const { data, isLoading, refetch, error } = useProfilePostsQuery();
+
+
 
   useEffect(() => {
     if (updatedUserInfo?.data?.user) {
@@ -28,15 +31,25 @@ const Profile = () => {
     }
   }, [user, navigate]);
 
+  useEffect(()=>{
+    refetch();
+  },[data,refetch])
+
   const handleLogout = async () => {
     try {
-      const response = apiRequest.post("/auth/logout");
+      const response = await apiRequest.post("/auth/logout");
       dispatch(userNotExist());
       navigate("/");
     } catch (error) {
       console.log(error);
     }
   };
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
+
+  const posts = data.posts;
+  const savedPost = data.savedPosts;
   return (
     <div className="profilePage">
       {user && (
@@ -73,11 +86,11 @@ const Profile = () => {
                 <button>Add Property</button>
               </Link>
             </div>
-            <List />
+            <List data={posts} />
             <div className="title">
               <h1>Saved Property</h1>
             </div>
-            <List />
+            <List data={savedPost} />
           </div>
         </div>
       )}

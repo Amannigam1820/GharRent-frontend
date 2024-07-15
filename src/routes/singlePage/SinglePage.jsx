@@ -51,6 +51,27 @@ const SinglePage = () => {
     return <div>No data available</div>;
   }
 
+  function getLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+     console.log("Geolocation is not supported by this browser.");
+    }
+  }
+  
+  function showPosition(position) {
+
+    console.log("Latitude: " + position.coords.latitude + " Longitude: " + position.coords.longitude);
+
+  
+  }
+  console.log(getLocation());
+
+
+
+  // const loc = navigator.geolocation();
+  // console.log(loc);
+
   //dispatch(propertyExist(singleProperty))
 
   const handleSave = async () => {
@@ -187,7 +208,7 @@ const SinglePage = () => {
                   {singleProperty.postDetail.restaurant > 999
                     ? (singleProperty.postDetail.restaurant / 1000).toFixed(1) +
                       "km"
-                    : singleProperty.postDetail.restaurant + "m"}
+                    : singleProperty.postDetail.restaurant + "m"}{" "}
                   away
                 </p>
               </div>
